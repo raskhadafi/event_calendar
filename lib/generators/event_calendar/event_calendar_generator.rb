@@ -26,7 +26,7 @@ class EventCalendarGenerator < Rails::Generators::Base
   end
 
   def install_templates
-    return unless options.static_only?
+    return if options.static_only?
 
     template "model.rb.erb", File.join("app/models", "#{@class_name}.rb")
     template "controller.rb.erb", File.join("app/controllers", "#{@view_name}_controller.rb")
