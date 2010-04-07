@@ -26,7 +26,14 @@ Options:
 You can change the default event model name (Event) and view name (Calendar) by passing in two name arguments:
 
   script/generate event_calendar EventModel ViewName
-  
+
+Rails 3:
+
+  rails g event_calendar
+
+or
+
+  rails g event_calendar Model View
 
 ==Generated Files
 
@@ -56,7 +63,7 @@ Unless the --static-only option is given, the following will be generated. Names
       drop_table :events
     end
   end
-  
+
 At minimum we need to have start_at and end_at fields.
 
 If the '--use-all-day' option is passed to the generator, it will also add a boolean all_day field.
@@ -65,7 +72,7 @@ An event can also have a *color* field (hex value stored as a string) which dete
 Or simply override the default virtual attribute on the model. For example, if events are associated to a calendar model, then the events can get their color from the calendar.
 
 ====app/models/event.rb
-  
+
   class Event < ActiveRecord::Base
     has_event_calendar
   end
@@ -75,7 +82,7 @@ Or simply override the default virtual attribute on the model. For example, if e
   map.calendar "/calendar/:year/:month", :controller => "calendar", :action => "index", :year => Time.now.year, :month => Time.now.month
 
 ====app/controllers/calendar_controller.rb
-  
+
   class CalendarController < ApplicationController
 
     def index
@@ -97,10 +104,10 @@ Some helper methods are created, but you could put this in the view. The key is 
     def month_link(month_date)
       link_to(I18n.localize(month_date, :format => "%B"), {:month => month_date.month, :year => month_date.year})
     end
-  
+
     # custom options for this calendar
     def event_calendar_options
-      { 
+      {
         :year => @year,
         :month => @month,
         :event_strips => @event_strips,
@@ -117,7 +124,7 @@ Some helper methods are created, but you could put this in the view. The key is 
       end
     end
   end
-  
+
 Notice you can pass in a block to the calendar method. In this example I'm passing a link to the event details, and displaying the event's name.
 
 ====app/views/calendar/index.html.erb
@@ -141,22 +148,22 @@ The default options for the calendar are:
     :previous_month_text => nil,
     :next_month_text => nil,
     :event_strips => [],
-    
+
     # it would be nice to have these in the CSS file
     # but they are needed to perform height calculations
     :width => nil,
-    :height => 500, 
+    :height => 500,
     :day_names_height => 18,
     :day_nums_height => 18,
     :event_height => 18,
     :event_margin => 1,
     :event_padding_top => 1,
-    
+
     :use_all_day => false,
     :use_javascript => true,
     :link_to_day_action => false
   }
-  
+
 You can override any of these by passing your options to the calendar method. In the above example, update the event_calendar_options helper method.
 
 ====Details
@@ -171,7 +178,7 @@ You can override any of these by passing your options to the calendar method. In
 
   Helper/View:
     :use_all_day => true
-  
+
   If using this option, you probably want to also show times for non-all-day events:
     calendar event_calendar_options do |args|
       event, day = args[:event], args[:day]
@@ -184,10 +191,10 @@ You can override any of these by passing your options to the calendar method. In
 * *use_javascript*: If set to false, it won't add custom HTML data attributes that are needed for javascript highlighting. (Note, custom attributes will be valid in HTML 5.) The actual javascript is unobtrusive and found in the event_calendar.js file.
 
 * *link_to_day_action*: Will make the calendar's day numbers links to the given Rails action. Note, you'll probably want a corresponding route, controller action, and view to go with this action. Example:
-  
+
   Helper/View calendar option:
     :link_to_day_action => "day"
-  
+
   Route (the controller is the same as your other calendar route):
     map.calendar_day "/calendar/:year/:month/:day", :controller => "calendar", :action => "day"
 
@@ -199,10 +206,10 @@ You can override any of these by passing your options to the calendar method. In
   Controller:
     @first_day_of_week = 1
     @event_strips = Event.event_strips_for_month(@shown_month, @first_day_of_week)
-  
+
   Helper/View calendar options:
     :first_day_of_week => @first_day_of_week
-    
+
 * If you need access to the events, not just the event strips, then instead of calling event_strips_for_month call these 3 methods:
 
     start_d, end_d = Event.get_start_and_end_dates(@shown_month) # optionally pass in @first_day_of_week
@@ -216,7 +223,7 @@ You can override any of these by passing your options to the calendar method. In
 To localize month and day names, add the following to your localization file(s) in config/locales:
 
   date -> formats, day_names, abbr_day_names, month_names, abbr_month_names
-  
+
 For example, in es.yml:
 
   es:
@@ -230,7 +237,7 @@ For example, in es.yml:
       # Don't forget the nil at the beginning; there's no such thing as a 0th month
       month_names: [~, Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre]
       abbr_month_names: [~, Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Sep, Oct, Nov, Dic]
-  
+
 
 ==Contributors
 
@@ -245,3 +252,4 @@ For example, in es.yml:
 * This in turn started as Geoffrey Grosenbach's CalendarHelper.
 
 Copyright (c) 2009 Elevation, released under the MIT license
+
