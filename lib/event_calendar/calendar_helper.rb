@@ -104,39 +104,39 @@ module EventCalendar
       cal = "".html_safe
 
       # outer calendar container
-      cal << %(<div class="ec-calendar")
-      cal << %(style="width: #{options[:width]}px;") if options[:width]
-      cal << %(>)
+      cal.safe_concat %(<div class="ec-calendar")
+      cal.safe_concat %(style="width: #{options[:width]}px;") if options[:width]
+      cal.safe_concat %(>)
 
       # table header, including the monthname and links to prev & next month
-      cal << %(<table class="ec-calendar-header" cellpadding="0" cellspacing="0">)
-      cal << %(<thead><tr>)
+      cal.safe_concat %(<table class="ec-calendar-header" cellpadding="0" cellspacing="0">)
+      cal.safe_concat %(<thead><tr>)
       if options[:previous_month_text] or options[:next_month_text]
-        cal << %(<th colspan="2" class="ec-month-nav">#{options[:previous_month_text]}</th>)
+        cal.safe_concat %(<th colspan="2" class="ec-month-nav">#{options[:previous_month_text]}</th>)
         colspan = 3
       else
         colspan = 7
       end
-      cal << %(<th colspan="#{colspan}" class="ec-month-name">#{options[:month_name_text]}</th>)
+      cal.safe_concat %(<th colspan="#{colspan}" class="ec-month-name">#{options[:month_name_text]}</th>)
       if options[:next_month_text]
-        cal << %(<th colspan="2" class="ec-month-nav">#{options[:next_month_text]}</th>)
+        cal.safe_concat %(<th colspan="2" class="ec-month-nav">#{options[:next_month_text]}</th>)
       end
-      cal << %(</tr></thead></table>)
+      cal.safe_concat %(</tr></thead></table>)
 
       # body container (holds day names and the calendar rows)
-      cal << %(<div class="ec-body" style="height: #{height}px;">)
+      cal.safe_concat %(<div class="ec-body" style="height: #{height}px;">)
 
       # day names
-      cal << %(<table class="ec-day-names" style="height: #{options[:day_names_height]}px;" cellpadding="0" cellspacing="0">)
-      cal << %(<tbody><tr>)
+      cal.safe_concat %(<table class="ec-day-names" style="height: #{options[:day_names_height]}px;" cellpadding="0" cellspacing="0">)
+      cal.safe_concat %(<tbody><tr>)
       day_names.each do |day_name|
-        cal << %(<th class="ec-day-name" title="#{day_name}">#{day_name}</th>)
+        cal.safe_concat %(<th class="ec-day-name" title="#{day_name}">#{day_name}</th>)
       end
-      cal << %(</tr></tbody></table>)
+      cal.safe_concat %(</tr></tbody></table>)
 
       # container for all the calendar rows
-      cal << %(<div class="ec-rows" style="top: #{options[:day_names_height]}px; )
-      cal << %(height: #{height - options[:day_names_height]}px;">)
+      cal.safe_concat %(<div class="ec-rows" style="top: #{options[:day_names_height]}px; )
+      cal.safe_concat %(height: #{height - options[:day_names_height]}px;">)
 
       # initialize loop variables
       first_day_of_week = beginning_of_week(first, options[:first_day_of_week])
@@ -147,43 +147,43 @@ module EventCalendar
 
       # go through a week at a time, until we reach the end of the month
       while(last_day_of_week <= last_day_of_cal)
-        cal << %(<div class="ec-row" style="top: #{top}px; height: #{row_heights[row_num]}px;">)
+        cal.safe_concat %(<div class="ec-row" style="top: #{top}px; height: #{row_heights[row_num]}px;">)
         top += row_heights[row_num]
 
         # this weeks background table
-        cal << %(<table class="ec-row-bg" cellpadding="0" cellspacing="0">)
-        cal << %(<tbody><tr>)
+        cal.safe_concat %(<table class="ec-row-bg" cellpadding="0" cellspacing="0">)
+        cal.safe_concat %(<tbody><tr>)
         first_day_of_week.upto(first_day_of_week+6) do |day|
           today_class = (day == Date.today) ? "ec-today-bg" : ""
-          cal << %(<td class="ec-day-bg #{today_class}">&nbsp;</td>)
+          cal.safe_concat %(<td class="ec-day-bg #{today_class}">&nbsp;</td>)
         end
-        cal << %(</tr></tbody></table>)
+        cal.safe_concat %(</tr></tbody></table>)
 
         # calendar row
-        cal << %(<table class="ec-row-table" cellpadding="0" cellspacing="0">)
-        cal << %(<tbody>)
+        cal.safe_concat %(<table class="ec-row-table" cellpadding="0" cellspacing="0">)
+        cal.safe_concat %(<tbody>)
 
         # day numbers row
-        cal << %(<tr>)
+        cal.safe_concat %(<tr>)
         first_day_of_week.upto(last_day_of_week) do |day|
-          cal << %(<td class="ec-day-header )
-          cal << %(ec-today-header ) if options[:show_today] and (day == Date.today)
-          cal << %(ec-other-month-header ) if (day < first) || (day > last)
-          cal << %(ec-weekend-day-header) if weekend?(day)
-          cal << %(" style="height: #{options[:day_nums_height]}px;">)
+          cal.safe_concat %(<td class="ec-day-header )
+          cal.safe_concat %(ec-today-header ) if options[:show_today] and (day == Date.today)
+          cal.safe_concat %(ec-other-month-header ) if (day < first) || (day > last)
+          cal.safe_concat %(ec-weekend-day-header) if weekend?(day)
+          cal.safe_concat %(" style="height: #{options[:day_nums_height]}px;">)
           if options[:link_to_day_action]
-            cal << day_link(day.day, day, options[:link_to_day_action])
+            cal.safe_concat day_link(day.day, day, options[:link_to_day_action])
           else
-            cal << %(#{day.day})
+            cal.safe_concat %(#{day.day})
           end
-          cal << %(</td>)
+          cal.safe_concat %(</td>)
         end
-        cal << %(</tr>)
+        cal.safe_concat %(</tr>)
 
         # event rows for this day
         # for each event strip, create a new table row
         options[:event_strips].each do |strip|
-          cal << %(<tr>)
+          cal.safe_concat %(<tr>)
           # go through through the strip, for the entries that correspond to the days of this week
           strip[row_num*7, 7].each_with_index do |event, index|
             day = first_day_of_week + index
@@ -197,67 +197,67 @@ module EventCalendar
                 # check if we should display the bg color or not
                 no_bg = no_event_bg?(event, options)
 
-                cal << %(<td class="ec-event-cell" colspan="#{(dates[1]-dates[0]).to_i + 1}" )
-                cal << %(style="padding-top: #{options[:event_margin]}px;">)
-                cal << %(<div class="ec-event ec-event-#{event.id} )
+                cal.safe_concat %(<td class="ec-event-cell" colspan="#{(dates[1]-dates[0]).to_i + 1}" )
+                cal.safe_concat %(style="padding-top: #{options[:event_margin]}px;">)
+                cal.safe_concat %(<div class="ec-event ec-event-#{event.id} )
                 if no_bg
-                  cal << %(ec-event-no-bg" )
-                  cal << %(style="color: #{event.color}; )
+                  cal.safe_concat %(ec-event-no-bg" )
+                  cal.safe_concat %(style="color: #{event.color}; )
                 else
-                  cal << %(ec-event-bg" )
-                  cal << %(style="background-color: #{event.color}; )
+                  cal.safe_concat %(ec-event-bg" )
+                  cal.safe_concat %(style="background-color: #{event.color}; )
                 end
-                cal << %(padding-top: #{options[:event_padding_top]}px; )
-                cal << %(height: #{options[:event_height] - options[:event_padding_top]}px;" )
+                cal.safe_concat %(padding-top: #{options[:event_padding_top]}px; )
+                cal.safe_concat %(height: #{options[:event_height] - options[:event_padding_top]}px;" )
                 if options[:use_javascript]
                   # custom attributes needed for javascript event highlighting
-                  cal << %(data-event-id="#{event.id}" data-color="#{event.color}" )
+                  cal.safe_concat %(data-event-id="#{event.id}" data-color="#{event.color}" )
                 end
-                cal << %(>)
+                cal.safe_concat %(>)
 
                 # add a left arrow if event is clipped at the beginning
                 if event.start_at.to_date < dates[0]
-                  cal << %(<div class="ec-left-arrow"></div>)
+                  cal.safe_concat %(<div class="ec-left-arrow"></div>)
                 end
                 # add a right arrow if event is clipped at the end
                 if event.end_at.to_date > dates[1]
-                  cal << %(<div class="ec-right-arrow"></div>)
+                  cal.safe_concat %(<div class="ec-right-arrow"></div>)
                 end
 
                 if no_bg
-                  cal << %(<div class="ec-bullet" style="background-color: #{event.color};"></div>)
+                  cal.safe_concat %(<div class="ec-bullet" style="background-color: #{event.color};"></div>)
                   # make sure anchor text is the event color
                   # here b/c CSS 'inherit' color doesn't work in all browsers
-                  cal << %(<style type="text/css">.ec-event-#{event.id} a { color: #{event.color}; }</style>)
+                  cal.safe_concat %(<style type="text/css">.ec-event-#{event.id} a { color: #{event.color}; }</style>)
                 end
 
                 if block_given?
                   # add the additional html that was passed as a block to this helper
-                  cal << block.call({:event => event, :day => day.to_date, :options => options})
+                  cal.safe_concat block.call({:event => event, :day => day.to_date, :options => options})
                 else
                   # default content in case nothing is passed in
-                  cal << %(<a href="/events/#{event.id}" title="#{h(event.name)}">#{h(event.name)}</a>)
+                  cal.safe_concat %(<a href="/events/#{event.id}" title="#{h(event.name)}">#{h(event.name)}</a>)
                 end
 
-                cal << %(</div></td>)
+                cal.safe_concat %(</div></td>)
               end
 
             else
               # there wasn't an event, so create an empty cell and container
-              cal << %(<td class="ec-event-cell ec-no-event-cell" )
-              cal << %(style="padding-top: #{options[:event_margin]}px;">)
-              cal << %(<div class="ec-event" )
-              cal << %(style="padding-top: #{options[:event_padding_top]}px; )
-              cal << %(height: #{options[:event_height] - options[:event_padding_top]}px;" )
-              cal << %(>)
-              cal << %(&nbsp;</div></td>)
+              cal.safe_concat %(<td class="ec-event-cell ec-no-event-cell" )
+              cal.safe_concat %(style="padding-top: #{options[:event_margin]}px;">)
+              cal.safe_concat %(<div class="ec-event" )
+              cal.safe_concat %(style="padding-top: #{options[:event_padding_top]}px; )
+              cal.safe_concat %(height: #{options[:event_height] - options[:event_padding_top]}px;" )
+              cal.safe_concat %(>)
+              cal.safe_concat %(&nbsp;</div></td>)
             end
           end
-          cal << %(</tr>)
+          cal.safe_concat %(</tr>)
         end
 
-        cal << %(</tbody></table>)
-        cal << %(</div>)
+        cal.safe_concat %(</tbody></table>)
+        cal.safe_concat %(</div>)
 
         # increment the calendar row we are on, and the week
         row_num += 1
@@ -265,9 +265,9 @@ module EventCalendar
         last_day_of_week += 7
       end
 
-      cal << %(</div>)
-      cal << %(</div>)
-      cal << %(</div>)
+      cal.safe_concat %(</div>)
+      cal.safe_concat %(</div>)
+      cal.safe_concat %(</div>)
     end
 
     # override this in your own helper for greater control
