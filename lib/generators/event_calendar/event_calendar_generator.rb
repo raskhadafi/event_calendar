@@ -18,22 +18,24 @@ class EventCalendarGenerator < Rails::Generators::Base
   class_option :static_only, :type => :boolean, :default => false
   class_option :use_all_day, :type => :boolean, :default => false
 
-  def install_event_calendar
+  def install_static_files
     copy_file "stylesheet.css", "public/stylesheets/event_calendar.css"
 
     script = options.use_jquery? ? "jq_javascript.js" : "javascript.js"
     copy_file script, "public/javascripts/event_calendar.js"
+  end
 
-    unless options.static_only?
-      template "model.rb.erb", File.join("app/models", "#{@class_name}.rb")
-      template "controller.rb.erb", File.join("app/controllers", "#{@view_name}_controller.rb")
-      empty_directory File.join("app/views", @view_name)
-      template "view.html.erb", File.join("app/views", @view_name, "index.html.erb")
-      template "helper.rb.erb", File.join("app/helpers", "#{@view_name}_helper.rb")
-      migration_template "migration.rb.erb", "db/migrate/create_#{@class_name.pluralize}"
+  def install_templates
+    return unless options.static_only?
 
-      route "match '/#{@view_name}/:year/:month', :to => '#{@view_name}#index', :defaults => { :year => Time.zone.now.year, :month => Time.zone.now.month }"
-    end
+    template "model.rb.erb", File.join("app/models", "#{@class_name}.rb")
+    template "controller.rb.erb", File.join("app/controllers", "#{@view_name}_controller.rb")
+    empty_directory File.join("app/views", @view_name)
+    template "view.html.erb", File.join("app/views", @view_name, "index.html.erb")
+    template "helper.rb.erb", File.join("app/helpers", "#{@view_name}_helper.rb")
+    migration_template "migration.rb.erb", "db/migrate/create_#{@class_name.pluralize}"
+
+    route "match '/#{@view_name}/:year/:month', :to => '#{@view_name}#index', :defaults => { :year => Time.zone.now.year, :month => Time.zone.now.month }"
   end
 end
 
