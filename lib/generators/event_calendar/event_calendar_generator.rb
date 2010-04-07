@@ -35,7 +35,7 @@ class EventCalendarGenerator < Rails::Generators::Base
     template "helper.rb.erb", File.join("app/helpers", "#{@view_name}_helper.rb")
     migration_template "migration.rb.erb", "db/migrate/create_#{@class_name.pluralize}"
 
-    route "match '/#{@view_name}/:year/:month', :to => '#{@view_name}#index', :defaults => { :year => Time.zone.now.year, :month => Time.zone.now.month }"
+    route "match '/#{@view_name}(/:year/:month)', :to => '#{@view_name}#index', :defaults => { :year => Time.zone.now.year, :month => Time.zone.now.month }"
   end
 end
 
