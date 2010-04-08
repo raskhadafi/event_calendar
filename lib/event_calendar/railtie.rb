@@ -5,7 +5,7 @@ require 'active_record'
 require 'action_pack'
 
 module EventCalendar < Rails::Railtie
-  initializer "event_calendar.add_methods" do |app|
+  initializer "event_calendar.add_methods" do
     ActiveRecord::Base.extend EventCalendar::PluginMethods
     ActionView::Base.send :include, EventCalendar::CalendarHelper
   end

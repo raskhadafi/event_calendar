@@ -15,7 +15,7 @@ class EventCalendarGenerator < Rails::Generators::Base
   argument :view_name, :optional => true, :default => 'calendar'
 
   class_option :use_jquery, :type => :boolean, :default => false
-  class_option :static_only, :type => :boolean, :default => false
+  class_option :example, :type => :boolean, :default => false
   class_option :use_all_day, :type => :boolean, :default => false
 
   def install_static_files
@@ -26,7 +26,7 @@ class EventCalendarGenerator < Rails::Generators::Base
   end
 
   def install_templates
-    return if options.static_only?
+    return unless options.example?
 
     template "model.rb.erb", File.join("app/models", "#{@class_name}.rb")
     template "controller.rb.erb", File.join("app/controllers", "#{@view_name}_controller.rb")
