@@ -1,4 +1,5 @@
-require 'event_calendar'
+require 'event_calendar/plugin_methods'
+require 'event_calendar/calendar_helper'
 require 'rails'
 require 'active_record'
 require 'action_pack'
