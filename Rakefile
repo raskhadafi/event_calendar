@@ -13,7 +13,7 @@ begin
     gem.summary = "Event Calendar"
     gem.email = "coder2000@gmail.com"
     gem.description = "Generates a calendar with events that span more than one day."
-    gem.files = Dir["*", "{lib}/**/*"]
+    gem.files = FileList["[A-Z]*", "{lib,rails}/**/*"]
     gem.authors = ["Jeff Schuil", "Dieter Lunn"]
     gem.homepage = "http://github.com/coder2000/event_calendar"
   end
