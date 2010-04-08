@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
      "README.rdoc",
      "Rakefile",
      "VERSION",
+     "event_calendar.gemspec",
      "init.rb",
      "install.rb",
      "lib/event_calendar.rb",
