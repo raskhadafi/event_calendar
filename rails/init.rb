@@ -3,3 +3,5 @@
 
 require 'event_calendar'
 
+puts "Loading event_calendar"
+

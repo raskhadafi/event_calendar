@@ -1,4 +1,3 @@
-module EventCalendar
   module CalendarHelper
 
     # Returns an HTML calendar which can show multiple, overlapping events across calendar days and rows.
@@ -357,5 +356,4 @@ module EventCalendar
       [0, 6].include?(date.wday)
     end
   end
-end
 
