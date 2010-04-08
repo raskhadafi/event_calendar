@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{event-calendar}
-  s.version = "2.2.3"
+  s.version = "2.2.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jeff Schuil", "Dieter Lunn"]
-  s.date = %q{2010-04-07}
+  s.date = %q{2010-04-08}
   s.description = %q{Generates a calendar with events that span more than one day.}
   s.email = %q{coder2000@gmail.com}
   s.extra_rdoc_files = [
@@ -24,7 +24,6 @@ Gem::Specification.new do |s|
      "lib/event_calendar.rb",
      "lib/event_calendar/calendar_helper.rb",
      "lib/event_calendar/plugin_methods.rb",
-     "lib/event_calendar/railtie.rb",
      "lib/generators/event_calendar/event_calendar_generator.rb",
      "lib/generators/event_calendar/templates/controller.rb.erb",
      "lib/generators/event_calendar/templates/helper.rb.erb",
