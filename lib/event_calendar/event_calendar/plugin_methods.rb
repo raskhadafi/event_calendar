@@ -1,14 +1,14 @@
 module EventCalendar
 
   module PluginMethods
-    # def has_event_calendar
-    #   ClassMethods.setup_event_calendar_on self
-    # end
-
-    def self.included(base)
-      base.send :include, EventCalendar::InstanceMethods
-      base.extend EventCalendar::ClassMethods
+    def has_event_calendar
+      ClassMethods.setup_event_calendar_on self
     end
+
+    # def self.included(base)
+    #  base.send :include, EventCalendar::InstanceMethods
+    #  base.extend EventCalendar::ClassMethods
+    # end
   end
 
   # class Methods

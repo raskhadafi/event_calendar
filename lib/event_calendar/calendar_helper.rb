@@ -100,7 +100,7 @@
       end
 
       # Build the HTML string
-      cal = "".html_safe
+      cal = ActiveSupport::StringBuffer.new
 
       # outer calendar container
       cal.safe_concat %(<div class="ec-calendar")
