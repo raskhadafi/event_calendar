@@ -102,7 +102,7 @@ require 'active_support'
       end
 
       # Build the HTML string
-      cal = ActiveSupport::StringBuffer.new
+      cal = ActiveSupport::SafeBuffer.new
 
       # outer calendar container
       cal.safe_concat %(<div class="ec-calendar")
