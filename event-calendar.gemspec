@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{event-calendar}
-  s.version = "2.2.5"
+  s.version = "2.2.6"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jeff Schuil", "Dieter Lunn"]
@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
      "VERSION",
      "lib/event_calendar.rb",
      "lib/event_calendar/calendar_helper.rb",
-     "lib/event_calendar/plugin_methods.rb",
+     "lib/event_calendar/event_calendar/plugin_methods.rb",
      "lib/generators/event_calendar/event_calendar_generator.rb",
      "lib/generators/event_calendar/templates/controller.rb.erb",
      "lib/generators/event_calendar/templates/helper.rb.erb",
