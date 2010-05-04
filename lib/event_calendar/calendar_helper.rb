@@ -1,3 +1,5 @@
+require 'active_support'
+
   module CalendarHelper
 
     # Returns an HTML calendar which can show multiple, overlapping events across calendar days and rows.

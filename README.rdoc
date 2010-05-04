@@ -11,7 +11,7 @@ To customize the look, modify the included stylesheet and/or change the default 
 
 ==Install
 
-  script/plugin install git://github.com/elevation/event_calendar.git
+  script/plugin install git://github.com/coder2000/event_calendar.git
 
 To generate the necessary static files AND the example below:
 
