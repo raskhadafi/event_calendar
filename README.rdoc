@@ -71,7 +71,9 @@ Or simply override the default virtual attribute on the model. For example, if e
 
 ====config/routes.rb
 
-  map.calendar "/calendar/:year/:month", :controller => "calendar", :action => "index", :year => Time.now.year, :month => Time.now.month
+  match '/calendar/:year/:month', :to => 'calendar#index'
+
+  root :to => 'calendar#index', :defaults => { :year => Time.zone.now.year, :month => Time.zone.now.month }
 
 ====app/controllers/calendar_controller.rb
 
