@@ -1,3 +1,6 @@
+== 2010-11-16 / Version 2.3.1
+* Merge with root fork
+
 == 2010-07-02 / Version 2.3
 * Added Rails 3 generators
 * Minor improvement to the generated route. Default year and month are set in the controller instead.
@@ -8,6 +11,12 @@
     has_event_calendar :start_at_field  => 'custom_start_at', :end_at_field => 'custom_end_at'
 * Can pass additional find conditions to event_strips_for_month.
 * Added rpsec with a few specs.
+
+== 2010-04-07 / Version 2.2
+* Removed Rails 2 generators
+* Added Rails 3 generators
+* Removed unused files
+* Changed << to .safe_concat in helper to all usage of SafeBuffer
 
 == 2009-12-09 / Version 2.1
 * Added the 'use_all_day' option. If this is set to true (by default it is false), it will check for an 'all_day' boolean field when displaying an event. If it is an all day event, or the event is multiple days, then it will display as usual. Otherwise it will display without a background color bar.
@@ -36,3 +45,4 @@
 * The initial EventCalendar Rails Plugin
 * Most bugs and issues have been resolved
 * Works, but isn't as flexible as desired
+
