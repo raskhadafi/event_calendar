@@ -25,11 +25,11 @@ module <%= view_name.camelcase %>Helper
       html = %(<a href="/events/#{event.id}" title="#{h(event.name)}">)
       html << display_event_time(event, day)
       html << %(#{h(event.name)}</a>)
-      html
       <%- else -%>
       event = args[:event]
-      %(<a href="/events/#{event.id}" title="#{h(event.name)}">#{h(event.name)}</a>)
+      html = %(<a href="/events/#{event.id}" title="#{h(event.name)}">#{h(event.name)}</a>)
       <%- end -%>
+      return html.html_safe
     end
   end
 end
