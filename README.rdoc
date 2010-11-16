@@ -37,8 +37,6 @@ To generate the necessary static files AND the example below:
 
 You can change the default event model name (Event) and controller/view name (Calendar) by passing in two name arguments:
 
-  script/generate event_calendar EventModel ControllerName
-
   rails g event_calendar Model View
 
 ==Generated Files

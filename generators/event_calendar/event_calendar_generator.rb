@@ -27,7 +27,7 @@ class EventCalendarGenerator < Rails::Generator::Base
         m.template "model.rb.erb", File.join("app/models", "#{@class_name}.rb")
         m.template "controller.rb.erb", File.join("app/controllers", "#{@view_name}_controller.rb")
         m.directory File.join("app/views", @view_name)
-        m.template "view.html.erb", File.join("app/views", @view_name, "index.html.erb")
+        m.template "index.html.haml", File.join("app/views", @view_name, "index.html.erb")
         m.template "helper.rb.erb", File.join("app/helpers", "#{@view_name}_helper.rb")        
         m.migration_template "migration.rb.erb", "db/migrate", :migration_file_name => "create_#{@class_name.pluralize}"
         m.route_name(@view_name, "/#{@view_name}/:year/:month", ":controller => '#{@view_name}', :action => 'index', :requirements => {:year => /\d{4}/, :month => /\d{1,2}/}, :year => nil, :month => nil")

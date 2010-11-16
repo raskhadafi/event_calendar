@@ -119,9 +119,9 @@ require 'active_support'
       else
         colspan = 7
       end
-      cal.safe_concat %(<th colspan="#{colspan}" class="ec-month-name">#{options[:month_name_text]}</th>)
+      cal.safe_concat %(<th colspan="#{colspan}" class="ec-month-name ec-text-middle">#{options[:month_name_text]}</th>)
       if options[:next_month_text]
-        cal.safe_concat %(<th colspan="2" class="ec-month-nav">#{options[:next_month_text]}</th>)
+        cal.safe_concat %(<th colspan="2" class="ec-month-nav ec-text-right">#{options[:next_month_text]}</th>)
       end
       cal.safe_concat %(</tr></thead></table>)
 

@@ -231,3 +231,11 @@ a.ec-day-link {
   -khtml-border-radius: 2px;
   -moz-border-radius: 2px;
 }
+
+.ec-text-right {
+  text-align: right;
+}
+
+.ec-text-middle {
+  text-align: center;
+}

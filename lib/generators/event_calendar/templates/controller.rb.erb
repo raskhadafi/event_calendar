@@ -8,5 +8,9 @@ class <%= view_name.classify %>Controller < ApplicationController
 
     @event_strips = <%= class_name.classify %>.event_strips_for_month(@shown_month)
   end
+
+  def view
+    @<%= class_name.downcase %> = <%= class_name.classify %>.find(params[<%= class_name.downcase.to_sym %>])
+  end
   
 end

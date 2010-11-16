@@ -1,6 +1,6 @@
-class Create<%= table_name.camelize %> < ActiveRecord::Migration
+class Create<%= class_name.pluralize.camelize %> < ActiveRecord::Migration
   def self.up
-    create_table :<%= table_name %> do |t|
+    create_table <%= class_name.pluralize.to_sym %> do |t|
       t.string :name
       t.datetime :start_at
       t.datetime :end_at
@@ -16,6 +16,6 @@ class Create<%= table_name.camelize %> < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :<%= table_name %>
+    drop_table <%= class_name.pluralize.to_sym %>
   end
 end
